@@ -1,3 +1,4 @@
+pub mod activation;
 pub mod math;
 
 #[cfg(test)]
@@ -9,16 +10,19 @@ use serde::{Deserialize, Serialize};
 
 use math::{Matrix, Vector};
 
+use activation::*;
+
 #[derive(Serialize, Deserialize)]
 pub struct NeuralNetwork {
     weights: Vec<Matrix>,
     values: Vec<Vector>,
     errors: Vec<Vector>,
     learning_coefficient: f64,
+    activation_fn: ActivationFn,
 }
 
 impl NeuralNetwork {
-    pub fn new(layers: Vec<usize>, learning_coefficient: f64) -> Self {
+    pub fn new(layers: Vec<usize>, learning_coefficient: f64, activation_fn: ActivationFn) -> Self {
         // creating weights
         let mut weights = Vec::new();
         for index in 0..layers.len() - 1 {
@@ -37,15 +41,20 @@ impl NeuralNetwork {
             values,
             errors,
             learning_coefficient,
+            activation_fn,
         }
     }
 
     pub fn run(&mut self, input: Vec<f64>) -> Vec<f64> {
         self.values[0] = Vector(input);
 
+        let mut activation_fn = match self.activation_fn {
+            ActivationFn::Sigmoid => sigmoid,
+        };
+
         let layers = self.weights.len();
         for layer in 0..layers {
-            self.values[layer].activate();
+            self.values[layer].activate(&mut activation_fn);
             self.values[layer + 1] = self.values[layer].multiply(&self.weights[layer]);
         }
         self.values[layers].0.clone()

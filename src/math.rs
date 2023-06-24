@@ -1,5 +1,5 @@
 use rand::Rng;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct Matrix(pub Vec<Vec<f64>>);
@@ -38,14 +38,10 @@ impl Vector {
         result
     }
 
-    fn activation_fn(x: &f64) -> f64 {
-        1.0 / (1.0 + (-x).exp())
-    }
-
-    pub fn activate(&mut self) {
+    pub fn activate(&mut self, activation_fn: &mut dyn FnMut(&f64) -> f64) {
         let size = self.0.len();
         for i in 0..size {
-            self.0[i] = Self::activation_fn(&self.0[i]);
+            self.0[i] = activation_fn(&self.0[i]);
         }
     }
 }
