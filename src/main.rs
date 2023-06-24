@@ -1,18 +1,12 @@
 use std::path::Path;
 
-use nnlib::neural_network::NeuralNetwork;
+use nnlib::NeuralNetwork;
 
 fn main() {
     let path = Path::new("./nn.nnlib");
     let mut nn = NeuralNetwork::load(path);
-    let inputs = vec![
-        vec![0.9, 0.1],
-        vec![0.1, 0.9],
-    ];
-    let expected_outputs = vec![
-        vec![0.1, 0.9],
-        vec![0.9, 0.1],
-    ];
+    let inputs = vec![vec![0.9, 0.1], vec![0.1, 0.9]];
+    let expected_outputs = vec![vec![0.1, 0.9], vec![0.9, 0.1]];
 
     for _generations in 0..100 {
         for data_set in 0..2 {
