@@ -50,6 +50,7 @@ impl NeuralNetwork {
 
         let mut activation_fn = match self.activation_fn {
             ActivationFn::Sigmoid => sigmoid,
+            ActivationFn::LeakyRELU => leaky_relu,
         };
 
         let layers = self.weights.len();
