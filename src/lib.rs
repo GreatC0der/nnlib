@@ -60,7 +60,7 @@ impl NeuralNetwork {
         let layers = self.weights.len();
         for layer in 0..layers {
             self.values[layer].activate(&mut activation_fn);
-            self.values[layer + 1] = self.values[layer].multiply(&self.weights[layer]);
+            self.values[layer + 1] = self.values[layer].forwards(&self.weights[layer]);
         }
 
         // returning last layer as output.
@@ -81,7 +81,7 @@ impl NeuralNetwork {
         // Calculate errors for all layers
         let layers = self.errors.len();
         for layer in 1..layers {
-            self.errors[layer - 1] = self.errors[layer].invert_multiply(&self.weights[layer - 1]);
+            self.errors[layer - 1] = self.errors[layer].backwards(&self.weights[layer - 1]);
         }
 
         self.change_weights();

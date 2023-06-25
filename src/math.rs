@@ -15,7 +15,8 @@ impl Vector {
         Vector(vector)
     }
 
-    pub fn multiply(&self, matrix: &Matrix) -> Vector {
+    /// Multiplies the matrix by the vector.
+    pub fn forwards(&self, matrix: &Matrix) -> Vector {
         let matrix_cols = matrix.0[0].len();
         let vector_length = matrix.0.len();
         let mut result = Vector::new(vector_length);
@@ -29,7 +30,7 @@ impl Vector {
     }
 
     /// Inverts and multiplies the matrix by the vector.
-    pub fn invert_multiply(&self, matrix: &Matrix) -> Vector {
+    pub fn backwards(&self, matrix: &Matrix) -> Vector {
         let matrix_cols = matrix.0[0].len();
         let vector_length = matrix.0.len();
         let mut result = Vector::new(vector_length);

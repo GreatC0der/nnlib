@@ -10,7 +10,7 @@ fn multiplication() {
         vec![7.0, 8.0, 9.0],
         vec![10.0, 11.0, 12.0],
     ]);
-    assert_eq!(expected_result, vector.multiply(&matrix).0)
+    assert_eq!(expected_result, vector.forwards(&matrix).0)
 }
 
 #[test]
@@ -19,7 +19,7 @@ fn inverted_multiplication() {
     let matrix = Matrix(vec![vec![1.0, 2.0], vec![3.0, 4.0]]);
     let inverted_matrix = Matrix(vec![vec![1.0, 3.0], vec![2.0, 4.0]]);
     assert_eq!(
-        vector.multiply(&inverted_matrix).0,
-        vector.invert_multiply(&matrix).0
+        vector.forwards(&inverted_matrix).0,
+        vector.backwards(&matrix).0
     )
 }
