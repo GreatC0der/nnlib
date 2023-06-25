@@ -1,7 +1,7 @@
 # nnlib
 Create and train neural networks in rust.
 
-### ⚠️" This library is in early development. ⚠️"
+### ⚠ This library is in early development. ⚠
 
 ## Docs 
 You can generate documentation by running `cargo doc --open`
