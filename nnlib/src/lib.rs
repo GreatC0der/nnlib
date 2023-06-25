@@ -19,6 +19,9 @@ pub struct NeuralNetwork {
 }
 
 impl NeuralNetwork {
+    /// Create a neural network.
+    /// layers - vec![2, 3, 4] would mean 2 nodes in input layer, 3 nodes in hidden layer and 4 nodes in output layer.
+    /// Bias nodes are added automaticly.
     pub fn new(layers: Vec<usize>, learning_coefficient: f64, activation_fn: ActivationFn) -> Self {
         // array `layers` but with bias node (+1)
         let layers_with_bias = {
@@ -54,6 +57,7 @@ impl NeuralNetwork {
         }
     }
 
+    /// Runs neural network, returns output.
     pub fn run(&mut self, input: Vec<f64>) -> Vec<f64> {
         // Setting input nodes to input
         self.values[0] = Vector(input);
@@ -114,12 +118,14 @@ impl NeuralNetwork {
         }
     }
 
+    /// Saves neural network to a file.
     pub fn save(&self, path: &Path) {
         let data = serde_json::to_string(&self).unwrap();
         let mut file = std::fs::File::create(path).unwrap();
         file.write_all(data.as_bytes()).unwrap();
     }
 
+    /// Loads neural network from the file.
     pub fn load(path: &Path) -> Self {
         let data = std::fs::read_to_string(path).unwrap();
         serde_json::from_str(&data).unwrap()
