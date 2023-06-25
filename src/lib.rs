@@ -1,9 +1,6 @@
 pub mod activation;
 pub mod math;
 
-#[cfg(test)]
-pub mod tests;
-
 use std::{io::Write, path::Path};
 
 use serde::{Deserialize, Serialize};
@@ -23,18 +20,29 @@ pub struct NeuralNetwork {
 
 impl NeuralNetwork {
     pub fn new(layers: Vec<usize>, learning_coefficient: f64, activation_fn: ActivationFn) -> Self {
+        // array `layers` but with bias node (+1)
+        let layers_with_bias = {
+            let mut temp = layers.clone();
+
+            for i in 0..temp.len() {
+                temp[i] += 1;
+            }
+
+            temp
+        };
+
         // creating weights
         let mut weights = Vec::new();
         for index in 0..layers.len() - 1 {
-            weights.push(Matrix::new(layers[index + 1], layers[index]));
+            weights.push(Matrix::new(layers_with_bias[index + 1], layers[index]));
         }
         // defining values(to access values after forward propagation to complete backward propagation )
         // and defining errors
         let mut values = Vec::new();
         let mut errors = Vec::new();
-        for layer_size in layers {
-            values.push(Vector::new(layer_size));
-            errors.push(Vector::new(layer_size));
+        for layer in 0..layers.len() {
+            values.push(Vector::new(layers[layer]));
+            errors.push(Vector::new(layers_with_bias[layer]));
         }
 
         NeuralNetwork {

@@ -15,7 +15,7 @@ impl Vector {
         Vector(vector)
     }
 
-    /// Multiplies the matrix by the vector.
+    /// Multiplies the matrix by the vector. Cares about bias node.
     pub fn forwards(&self, matrix: &Matrix) -> Vector {
         let matrix_cols = matrix.0[0].len();
         let vector_length = matrix.0.len();
@@ -25,11 +25,15 @@ impl Vector {
             for c in 0..matrix_cols {
                 result.0[j] += self.0[c] * matrix.0[j][c];
             }
+
+            // Adding bias node.
+            result.0[j] += 1.0 * matrix.0[j][matrix_cols];
         }
+
         result
     }
 
-    /// Inverts and multiplies the matrix by the vector.
+    /// Inverts and multiplies the matrix by the vector. Cares about bias node.
     pub fn backwards(&self, matrix: &Matrix) -> Vector {
         let matrix_cols = matrix.0[0].len();
         let vector_length = matrix.0.len();
@@ -40,6 +44,7 @@ impl Vector {
                 result.0[j] += self.0[c] * matrix.0[c][j];
             }
         }
+
         result
     }
 
