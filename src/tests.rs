@@ -1,4 +1,4 @@
-use crate::linear::{Matrix, Vector};
+use crate::math::{Matrix, Vector};
 
 #[test]
 fn multiplication() {
@@ -16,13 +16,10 @@ fn multiplication() {
 #[test]
 fn inverted_multiplication() {
     let vector = Vector(vec![1.0, 2.0, 3.0, 4.0]);
-    let matrix = Matrix(vec![
-        vec![1.0, 2.0],
-        vec![3.0, 4.0],
-    ]);
-    let inverted_matrix = Matrix(vec![
-        vec![1.0, 3.0],
-        vec![2.0, 4.0],
-    ]);
-    assert_eq!(vector.multiply(&inverted_matrix).0, vector.invert_multiply(&matrix).0)
+    let matrix = Matrix(vec![vec![1.0, 2.0], vec![3.0, 4.0]]);
+    let inverted_matrix = Matrix(vec![vec![1.0, 3.0], vec![2.0, 4.0]]);
+    assert_eq!(
+        vector.multiply(&inverted_matrix).0,
+        vector.invert_multiply(&matrix).0
+    )
 }

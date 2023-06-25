@@ -8,11 +8,13 @@ pub struct Matrix(pub Vec<Vec<f64>>);
 pub struct Vector(pub Vec<f64>);
 
 impl Vector {
+    /// Creates vector and fills it with 0s.
     pub fn new(size: usize) -> Self {
         let mut vector = Vec::new();
         vector.resize(size, 0.0);
         Vector(vector)
     }
+
     pub fn multiply(&self, matrix: &Matrix) -> Vector {
         let matrix_cols = matrix.0[0].len();
         let vector_length = matrix.0.len();
@@ -25,6 +27,8 @@ impl Vector {
         }
         result
     }
+
+    /// Inverts and multiplies the matrix by the vector.
     pub fn invert_multiply(&self, matrix: &Matrix) -> Vector {
         let matrix_cols = matrix.0[0].len();
         let vector_length = matrix.0.len();
@@ -38,6 +42,7 @@ impl Vector {
         result
     }
 
+    /// Applies activation_fn to every value in vector.
     pub fn activate(&mut self, activation_fn: &mut dyn FnMut(&f64) -> f64) {
         let size = self.0.len();
         for i in 0..size {
@@ -47,6 +52,7 @@ impl Vector {
 }
 
 impl Matrix {
+    /// Creates matrix and fills it with random numbers.
     pub fn new(rows: usize, columns: usize) -> Self {
         let mut column = Vec::new();
         column.resize(columns, 0.0);

@@ -28,7 +28,8 @@ impl NeuralNetwork {
         for index in 0..layers.len() - 1 {
             weights.push(Matrix::new(layers[index + 1], layers[index]));
         }
-        // defining values and errors
+        // defining values(to access values after forward propagation to complete backward propagation )
+        // and defining errors
         let mut values = Vec::new();
         let mut errors = Vec::new();
         for layer_size in layers {
@@ -46,18 +47,23 @@ impl NeuralNetwork {
     }
 
     pub fn run(&mut self, input: Vec<f64>) -> Vec<f64> {
+        // Setting input nodes to input
         self.values[0] = Vector(input);
 
+        // Figuring out what activation function to use
         let mut activation_fn = match self.activation_fn {
             ActivationFn::Sigmoid => sigmoid,
             ActivationFn::LeakyRELU => leaky_relu,
         };
 
+        // Forward propagation.
         let layers = self.weights.len();
         for layer in 0..layers {
             self.values[layer].activate(&mut activation_fn);
             self.values[layer + 1] = self.values[layer].multiply(&self.weights[layer]);
         }
+
+        // returning last layer as output.
         self.values[layers].0.clone()
     }
 
@@ -72,14 +78,14 @@ impl NeuralNetwork {
             overall_error += self.errors[last_layer].0[node].abs();
         }
 
-        // Calculate errors for the all layers
+        // Calculate errors for all layers
         let layers = self.errors.len();
         for layer in 1..layers {
             self.errors[layer - 1] = self.errors[layer].invert_multiply(&self.weights[layer - 1]);
         }
 
-        // Change weights
         self.change_weights();
+
         overall_error
     }
 
