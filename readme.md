@@ -1,10 +1,10 @@
 # nnlib
-[image](https://shields.io/crates/d/nnlib.svg)
-[image](https://shields.io/crates/v/nnlib.svg)
 Create and train neural networks in rust.
 
+### ⚠️" This library is in early development. ⚠️"
+
 ## Docs 
-Documentation is avaliable [here](https://docs.rs/crate/nnlib/latest)
+You can generate documentation by running `cargo doc --open`
 
 ## Examples
 Not yet, but we are working on it.
