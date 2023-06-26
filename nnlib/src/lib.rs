@@ -37,7 +37,7 @@ impl NeuralNetwork {
         // creating weights
         let mut weights = Vec::new();
         for index in 0..layers.len() - 1 {
-            weights.push(Matrix::new(layers_with_bias[index + 1], layers[index]));
+            weights.push(Matrix::new(layers[index + 1], layers_with_bias[index]));
         }
         // defining values(to access values after forward propagation to complete backward propagation )
         // and defining errors
@@ -106,7 +106,7 @@ impl NeuralNetwork {
 
         for layer in 0..layers {
             let rows = self.weights[layer].0.len();
-            let cols = self.weights[layer].0[0].len();
+            let cols = self.weights[layer].0[0].len() - 1;
 
             for x in 0..rows {
                 for y in 0..cols {
@@ -114,6 +114,9 @@ impl NeuralNetwork {
                         * self.values[layer].0[y]
                         * self.learning_coefficient;
                 }
+                // Don't forget about bias node.
+                self.weights[layer].0[x][cols] -=
+                    self.errors[layer].0[cols] * 1.0 * self.learning_coefficient;
             }
         }
     }

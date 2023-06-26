@@ -17,7 +17,7 @@ impl Vector {
 
     /// Multiplies the matrix by the vector. Cares about bias node.
     pub fn forwards(&self, matrix: &Matrix) -> Vector {
-        let matrix_cols = matrix.0[0].len();
+        let matrix_cols = matrix.0[0].len() - 1;
         let vector_length = matrix.0.len();
         let mut result = Vector::new(vector_length);
 
@@ -35,8 +35,8 @@ impl Vector {
 
     /// Inverts and multiplies the matrix by the vector. Cares about bias node.
     pub fn backwards(&self, matrix: &Matrix) -> Vector {
-        let matrix_cols = matrix.0[0].len();
-        let vector_length = matrix.0.len();
+        let matrix_cols = matrix.0.len() - 1;
+        let vector_length = matrix.0[0].len();
         let mut result = Vector::new(vector_length);
 
         for j in 0..vector_length {
