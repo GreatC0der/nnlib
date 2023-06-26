@@ -60,11 +60,12 @@ fn teach() {
         vec![0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
     ];
 
-    for generation in 0..100 {
+    for generation in 0..10 {
+        let mut error = 0.0;
         for data in data_set.iter() {
-            neural_network.teach(data.0.clone(), expected_output[data.1.clone()].clone());
-            println!("Generation: {}", generation);
+            error += neural_network.teach(data.0.clone(), expected_output[data.1.clone()].clone());
         }
+        println!("Generation: {}, error: {}", generation, error);
     }
 
     neural_network.save(Path::new("neural_network"));

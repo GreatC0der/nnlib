@@ -68,7 +68,7 @@ impl Matrix {
         let mut rng = rand::thread_rng();
         for x in 0..rows {
             for y in 0..columns {
-                matrix[x][y] = rng.gen();
+                matrix[x][y] = rng.gen::<f64>();
             }
         }
         Matrix(matrix)

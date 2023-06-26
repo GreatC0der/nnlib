@@ -24,7 +24,7 @@ pub fn load_images(data_groups: usize) -> Vec<(Vec<f64>, usize)> {
 
 pub fn image_to_array(path: &Path) -> Vec<f64> {
     let img = image::open(path).unwrap();
-    img.to_rgb32f()
+    img.to_rgb8()
         .into_vec()
         .iter()
         .copied()
