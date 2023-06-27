@@ -39,11 +39,11 @@ fn run(path: String) {
 }
 
 fn teach() {
-    let data_set = image_utils::load_images(4);
+    let data_set = image_utils::load_images(5);
 
     let mut neural_network = NeuralNetwork::new(
-        vec![16 * 16, 8 * 8, 4 * 4, 10],
-        0.1,
+        vec![16 * 16, 8 * 8, 10],
+        0.5,
         nnlib::activation::ActivationFn::Sigmoid,
     );
 
@@ -60,7 +60,7 @@ fn teach() {
         vec![0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
     ];
 
-    for generation in 0..10 {
+    for generation in 0..100 {
         let mut error = 0.0;
         for data in data_set.iter() {
             error += neural_network.teach(data.0.clone(), expected_output[data.1.clone()].clone());
