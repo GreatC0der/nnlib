@@ -27,7 +27,8 @@ impl NeuralNetwork {
         let layers_with_bias = {
             let mut temp = layers.clone();
 
-            for i in 0..temp.len() - 1 { // Don't need a bias node on the last layer
+            for i in 0..temp.len() - 1 {
+                // Don't need a bias node on the last layer
                 temp[i] += 1;
             }
 
@@ -105,6 +106,11 @@ impl NeuralNetwork {
     fn change_weights(&mut self) {
         let layers = self.weights.len();
 
+        let derivative = match self.activation_fn {
+            ActivationFn::Sigmoid => sigmoid_derivative,
+            _ => no_derivative,
+        };
+
         for layer in 0..layers {
             let rows = self.weights[layer].0.len();
             let cols = self.weights[layer].0[0].len() - 1;
@@ -112,11 +118,15 @@ impl NeuralNetwork {
             for x in 0..rows {
                 for y in 0..cols {
                     self.weights[layer].0[x][y] -= self.errors[layer].0[y]
+                        * self.values[layer].0[y]
+                        * derivative(&self.values[layer].0[y])
                         * self.learning_coefficient;
                 }
                 // Don't forget about bias node.
-                self.weights[layer].0[x][cols] -=
-                    self.errors[layer].0[cols] * 1.0 * self.learning_coefficient;
+                self.weights[layer].0[x][cols] -= self.errors[layer].0[cols]
+                    * 1.0
+                    * self.learning_coefficient
+                    * sigmoid_derivative(&1.0);
             }
         }
     }

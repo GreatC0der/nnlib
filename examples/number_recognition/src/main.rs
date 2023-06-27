@@ -43,7 +43,7 @@ fn teach() {
 
     let mut neural_network = NeuralNetwork::new(
         vec![16 * 16, 8 * 8, 10],
-        0.1,
+        0.01,
         nnlib::activation::ActivationFn::Sigmoid,
     );
 
@@ -60,14 +60,27 @@ fn teach() {
         vec![0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
     ];
 
-    for generation in 0..100 {
+    'main_loop: for generation in 0..100 {
         let mut error = 0.0;
         for data in data_set.iter() {
             error += neural_network.teach(data.0.clone(), expected_output[data.1.clone()].clone());
         }
         println!("Generation: {}, error: {}", generation, error);
+        if generation % 10 == 0 {
+            println!("Write `stop` to finish training.");
+            if read_line() == "stop\n" {
+                break 'main_loop;
+            }
+        }
     }
 
     neural_network.save(Path::new("neural_network"));
     println!("Neural network trained and saved.");
+}
+
+pub fn read_line() -> String {
+    let mut input = String::new();
+    std::io::stdin().read_line(&mut input).unwrap();
+
+    input
 }
