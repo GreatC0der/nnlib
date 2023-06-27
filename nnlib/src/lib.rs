@@ -79,6 +79,7 @@ impl NeuralNetwork {
         self.values[layers].0.clone()
     }
 
+    // Train neural network. Sizes of `input` and `expected_output` are not checked!
     pub fn teach(&mut self, input: Vec<f64>, expected_output: Vec<f64>) -> f64 {
         let output = self.run(input);
         let mut overall_error = 0.0;
