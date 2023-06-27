@@ -27,7 +27,7 @@ impl NeuralNetwork {
         let layers_with_bias = {
             let mut temp = layers.clone();
 
-            for i in 0..temp.len() {
+            for i in 0..temp.len() - 1 { // Don't need a bias node on the last layer
                 temp[i] += 1;
             }
 
