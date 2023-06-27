@@ -71,8 +71,8 @@ impl NeuralNetwork {
         // Forward propagation.
         let layers = self.weights.len();
         for layer in 0..layers {
-            self.values[layer].activate(&mut activation_fn);
             self.values[layer + 1] = self.values[layer].forwards(&self.weights[layer]);
+            self.values[layer + 1].activate(&mut activation_fn);
         }
 
         // returning last layer as output.

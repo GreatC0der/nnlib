@@ -10,7 +10,7 @@ pub fn load_images(data_groups: usize) -> Vec<(Vec<f64>, usize)> {
         for number in 0..10 {
             result.push((
                 image_to_array(
-                    &Path::new("dataset")
+                    &Path::new("/home/alex/Documents/nnlib/examples/number_recognition/dataset")
                         .join(data_group.to_string())
                         .join(number.to_string() + ".png"),
                 ),
