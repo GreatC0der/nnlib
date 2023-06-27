@@ -39,7 +39,7 @@ fn run(path: String) {
 }
 
 fn teach() {
-    let data_set = image_utils::load_images(3);
+    let data_set = image_utils::load_images(4);
 
     let mut neural_network = NeuralNetwork::new(
         vec![16 * 16, 8 * 8, 4 * 4, 10],
