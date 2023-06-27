@@ -112,7 +112,6 @@ impl NeuralNetwork {
             for x in 0..rows {
                 for y in 0..cols {
                     self.weights[layer].0[x][y] -= self.errors[layer].0[y]
-                        * self.values[layer].0[y]
                         * self.learning_coefficient;
                 }
                 // Don't forget about bias node.
