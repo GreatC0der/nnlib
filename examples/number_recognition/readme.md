@@ -2,7 +2,9 @@
 #### [⚠ This project lacks data in the data set, you are very welcome to help. ⚠](https://github.com/GreatC0der/nnlib/issues/1)
 
 Look through the code and make sure that you understand most of it.
+
 I already tweaked it for you, the only thing left to do is to train the neural network.
+
 To do so, run:
 `
   cargo run --release -- teach
