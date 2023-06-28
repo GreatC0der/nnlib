@@ -60,15 +60,15 @@ fn teach() {
         vec![0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
     ];
 
-    'main_loop: for generation in 0..100 {
+    'main_loop: for generation in 0..200 {
         let mut error = 0.0;
         for data in data_set.iter() {
             error += neural_network.teach(data.0.clone(), expected_output[data.1.clone()].clone());
         }
         println!("Generation: {}, error: {}", generation, error);
         if generation % 10 == 0 {
-            println!("Write `stop` to finish training.");
-            if read_line() == "stop\n" {
+            println!("Do you want to finish training? (y/n) [default=n]");
+            if read_line() == "y\n" {
                 break 'main_loop;
             }
         }
