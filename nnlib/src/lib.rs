@@ -88,7 +88,7 @@ impl NeuralNetwork {
         // Calculate errors for the output layer
         let last_layer = self.errors.len() - 1;
         for node in 0..output.len() {
-            self.errors[last_layer].0[node] = output[node] - expected_output[node];
+            self.errors[last_layer].0[node] = (output[node] - expected_output[node]).atan();
             overall_error += self.errors[last_layer].0[node].abs();
         }
 
