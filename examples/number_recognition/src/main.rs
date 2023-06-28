@@ -44,7 +44,7 @@ fn teach() {
     let mut neural_network = NeuralNetwork::new(
         vec![16 * 16, 8 * 8, 10],
         0.01,
-        nnlib::activation::ActivationFn::Sigmoid,
+        nnlib::formulas::ActivationFn::Sigmoid,
     );
 
     let expected_output = vec![
