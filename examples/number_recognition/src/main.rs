@@ -65,7 +65,11 @@ fn teach() {
         for data in data_set.iter() {
             error += neural_network.teach(data.0.clone(), expected_output[data.1.clone()].clone());
         }
-        println!("Generation: {}, error: {}", generation, error);
+        println!(
+            "Generation: {}, error: {}",
+            generation,
+            error / data_set.len() as f64
+        );
         if generation % 10 == 0 {
             println!("Do you want to finish training? (y/n) [default=n]");
             if read_line() == "y\n" {

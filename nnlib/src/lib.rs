@@ -80,7 +80,7 @@ impl NeuralNetwork {
         self.values[layers].0.clone()
     }
 
-    // Train neural network. Sizes of `input` and `expected_output` are not checked!
+    // Train neural network. Sizes of `input` and `expected_output` are not checked! Return error(mean).
     pub fn teach(&mut self, input: Vec<f64>, expected_output: Vec<f64>) -> f64 {
         let output = self.run(input);
         let mut overall_error = 0.0;
@@ -91,6 +91,8 @@ impl NeuralNetwork {
             self.errors[last_layer].0[node] = output[node] - expected_output[node];
             overall_error += self.errors[last_layer].0[node].abs();
         }
+
+        overall_error /= self.errors[last_layer].0.len() as f64;
 
         // Calculate errors for all layers
         let layers = self.errors.len();
