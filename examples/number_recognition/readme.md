@@ -7,7 +7,6 @@ To do so, run:
 `
   cargo run --release -- teach
 `
-                      ^^^^^^^^ *We pass args to our proram here.*
 But watch out, you shouldn't overtrain it. The weights are generated randomly, so this behaviour might occur:
 - Works perfectly if you stop training at the right time.
 - Neural network becomes NaN.
@@ -16,8 +15,7 @@ But watch out, you shouldn't overtrain it. The weights are generated randomly, s
 Finally, to test the program you need to run:
 `
   cargo run --release -- run dataset/4/2.png
-`
-                             ^^^^^^^^^^^^^^^ *you can(and probably should) change this!*
+`  <--- *you can(and should) change this!*
 
 Congratulations! Now you can try to create your own neural network using this library. 
 
