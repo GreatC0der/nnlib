@@ -16,6 +16,14 @@ pub fn leaky_relu(x: &f64) -> f64 {
     }
 }
 
+pub fn leaky_rely_derivative(x: &f64) -> f64 {
+    if *x >= 0.0 {
+        1.0
+    } else {
+        0.1
+    }
+}
+
 pub fn no_derivative(_x: &f64) -> f64 {
     1.0
 }

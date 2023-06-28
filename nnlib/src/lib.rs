@@ -110,6 +110,7 @@ impl NeuralNetwork {
 
         let derivative = match self.activation_fn {
             ActivationFn::Sigmoid => sigmoid_derivative,
+            ActivationFn::LeakyRELU => leaky_rely_derivative,
             _ => no_derivative,
         };
 
