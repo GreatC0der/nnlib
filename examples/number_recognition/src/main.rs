@@ -22,7 +22,7 @@ fn run_from_disk(path: String) {
 }
 
 fn teach() {
-    let data_set = image_utils::load_images(6);
+    let data_set = image_utils::load_images(9);
 
     let mut neural_network = NeuralNetwork::new(
         vec![16 * 16, 8 * 8, 10],
