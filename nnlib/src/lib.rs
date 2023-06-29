@@ -1,4 +1,4 @@
-pub mod activation;
+pub mod formulas;
 pub mod math;
 
 use std::{io::Write, path::Path};
@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 
 use math::{Matrix, Vector};
 
-use activation::*;
+use formulas::*;
 
 #[derive(Serialize, Deserialize)]
 pub struct NeuralNetwork {
